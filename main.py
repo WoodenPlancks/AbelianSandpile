@@ -2,11 +2,11 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 def main():
-	n = 324//2
+	n = 324
 
 	grid = np.zeros(shape=(n, n))
 
-	for i in range(5832*8):
+	for i in range(5832):
 		add_grain(grid)
 		collapse_pile(grid)
 	draw_grid(grid)
