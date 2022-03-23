@@ -3,14 +3,15 @@ import main
 
 layout = [
 	[sg.Text("Welcome to the Abelian Sandpile Avatar Generator!")],
-	[sg.Text("What size would you like your image to be?"), sg.InputText(key="n")],
-	[sg.Text("How many grains of sand should your simulation have?"), sg.Input(key="ngrains")],
+	[sg.Text("What size would you like your image to be?"), sg.InputText(default_text="90", key="n")],
+	[sg.Text("How many grains of sand should your simulation have?"), sg.Input(default_text="5832", key="ngrains")],
 	[sg.Text("What colour scheme would you like for your avatar?")],
-	[sg.Radio(text="Inferno", group_id="COLOUR_SCHEME", default=True, key="Inferno")],
-	[sg.Radio(text="Pastel", group_id="COLOUR_SCHEME", default=False, key="Pastel")],
-	[sg.Radio(text="Autumn", group_id="COLOUR_SCHEME", default=False, key="Autumn")],
-	[sg.Radio(text="Greyscale", group_id="COLOUR_SCHEME", default=False, key="Greyscale")],
-	[sg.Button("OK")]]
+	[sg.Radio(text="Inferno", group_id="COLOUR_SCHEME", default=True, key="inferno")],
+	[sg.Radio(text="Blues", group_id="COLOUR_SCHEME", default=False, key="Blues")],
+	[sg.Radio(text="Autumn", group_id="COLOUR_SCHEME", default=False, key="autumn")],
+	[sg.Radio(text="Greyscale", group_id="COLOUR_SCHEME", default=False, key="gray")],
+	[sg.ProgressBar(max_value=100, orientation="h", key="progress_bar")],
+	[sg.Button("See Your Avatar!"), sg.Button("Close")]]
 
 # Create the window
 window = sg.Window("Abelian Sandpile Avatar Generator", layout)
@@ -18,22 +19,20 @@ window = sg.Window("Abelian Sandpile Avatar Generator", layout)
 # Create an event loop
 while True:
 	event, values = window.read()
-	colour_map_dict = {
-		"Inferno": "inferno",
-		"Pastel": "pastel",
-		"Autumn": "autumn",
-		"Greyscale": "gray"
-	}
 	colour_map = ""
 	for (key, val) in values.items():
-		if key in ["Inferno", "Pastel", "Autumn", "Greyscale"] and val:
+		if key in ["inferno", "Blues", "autumn", "gray"] and val:
 			colour_map = key
 			break
 
-	main.simulate_sandpile(int(values["n"]), int(values["ngrains"]), colour_map_dict[colour_map])
+	grid = main.simulate_sandpile(window, int(values["n"]), int(values["ngrains"]))
+	bar_val = main.loading_bar.percent_done
+
 	# End program if user closes window or
 	# presses the OK button
-	if event == "OK" or event == sg.WIN_CLOSED:
+	if event == "See Your Avatar!":
+		main.draw_grid(grid, colour_map)
+	if event == "Close" or event == sg.WIN_CLOSED:
 		break
 
 window.close()
