@@ -1,3 +1,5 @@
+from io import StringIO
+
 import numpy as np
 from matplotlib import pyplot as plt
 
@@ -22,7 +24,7 @@ def simulate_sandpile(window, n=90, num_grains=5832):
 
 
 def collapse_pile(grid, threshold=4):
-	inds_to_collapse = np.argwhere(grid > threshold)
+	inds_to_collapse = np.argwhere(grid >= threshold)
 	while (inds_to_collapse.shape[0] != 0):
 		for ind in inds_to_collapse:
 			x, y = ind
@@ -39,9 +41,16 @@ def collapse_pile(grid, threshold=4):
 
 
 def draw_grid(grid, grid_cmap):
-	plt.imshow(grid, cmap=grid_cmap)
-	plt.axis('off')
+	fig = plt.figure()
+	ax = fig.subplots()
+	ax.axis('off')
+	ax.imshow(grid, cmap=grid_cmap)
+	plt.savefig("C:\\Users\\micha\\OneDrive\\Documents\\Projects\\sandpile\\frames\\sandpile.png",
+				bbox_inches='tight',
+				pad_inches=0)
 	plt.show()
+
+	return
 
 
 def add_grain(grid):
