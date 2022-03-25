@@ -48,7 +48,6 @@ def draw_grid(grid, grid_cmap):
 	plt.savefig("C:\\Users\\micha\\OneDrive\\Documents\\Projects\\sandpile\\frames\\sandpile.png",
 				bbox_inches='tight',
 				pad_inches=0)
-	plt.show()
 
 	return
 

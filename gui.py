@@ -12,7 +12,7 @@ layout = [
 	[sg.Radio(text="Greyscale", group_id="COLOUR_SCHEME", default=False, key="gray")],
 	[sg.ProgressBar(max_value=100, orientation="h", key="progress_bar")],
 	[sg.Button("See Your Avatar!"), sg.Button("Close")],
-	[sg.Image()]
+	[sg.Image("", key="preview")]
 ]
 
 # Create the window
@@ -31,12 +31,14 @@ while True:
 
 	bar_val = main.loading_bar.percent_done
 
+
 	# End program if user closes window or
 	# presses the OK button
 	if event == "See Your Avatar!" and not values == preValues:
 		grid = main.simulate_sandpile(window, int(values["n"]), int(values["ngrains"]))
 		main.draw_grid(grid, colour_map)
 		values = preValues
+		window["preview"].update("C:\\Users\\micha\\OneDrive\\Documents\\Projects\\sandpile\\frames\\sandpile.png")
 
 	if event == "Close" or event == sg.WIN_CLOSED:
 		window.close()
