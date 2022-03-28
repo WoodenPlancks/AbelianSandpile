@@ -4,7 +4,7 @@ import main
 layout = [
 	[sg.Text("Welcome to the Abelian Sandpile Avatar Generator!")],
 	[sg.Text("What size would you like your image to be?"), sg.InputText(default_text="90", key="n")],
-	[sg.Text("How many grains of sand should your simulation have?"), sg.Input(default_text="5832", key="ngrains")],
+	[sg.Text("How many grains of sand should your simulation have?"), sg.Input(default_text="583", key="ngrains")],
 	[sg.Text("What colour scheme would you like for your avatar?")],
 	[sg.Radio(text="Inferno", group_id="COLOUR_SCHEME", default=True, key="inferno"), sg.Image()],
 	[sg.Radio(text="Blues", group_id="COLOUR_SCHEME", default=False, key="Blues")],

@@ -10,8 +10,12 @@ class LoadingBar():
 loading_bar = LoadingBar()
 
 def simulate_sandpile(window, n=90, num_grains=5832):
-	grid = np.zeros(shape=(n, n))
+	grid = np.zeros(shape=(n, n), dtype=np.int)
 	grains_done = 0
+
+	params = np.array((n, num_grains))
+
+	np.savetxt(f"./params.txt", params, delimiter=",")
 
 	for i in range(num_grains):
 		add_grain(grid)
@@ -19,6 +23,7 @@ def simulate_sandpile(window, n=90, num_grains=5832):
 		grains_done += 1
 		loading_bar.percent_done = grains_done/num_grains*100
 		window["progress_bar"].update_bar(loading_bar.percent_done)
+		np.savetxt(f"./frames/numbered/frame_{i}.txt", grid, delimiter= ",")
 
 	return grid
 
