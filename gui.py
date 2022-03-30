@@ -17,10 +17,10 @@ layout = [
 
 # Create the window
 window = sg.Window("Abelian Sandpile Avatar Generator", layout)
-
+preValues = {}
 # Create an event loop
 while True:
-	preValues = {}
+
 	event, values = window.read()
 	colour_map = ""
 
@@ -34,10 +34,13 @@ while True:
 
 	# End program if user closes window or
 	# presses the OK button
-	if event == "See Your Avatar!" and not values == preValues:
-		grid = main.simulate_sandpile(window, int(values["n"]), int(values["ngrains"]))
+	if event == "See Your Avatar!":
+
+		print(values["ngrains"], preValues)
+		if "ngrains" not in preValues or values["ngrains"] != preValues["ngrains"]:
+			grid = main.simulate_sandpile(window, int(values["n"]), int(values["ngrains"]))
 		main.draw_grid(grid, colour_map)
-		values = preValues
+		preValues = values
 		window["preview"].update("C:\\Users\\micha\\OneDrive\\Documents\\Projects\\sandpile\\frames\\sandpile.png")
 
 	if event == "Close" or event == sg.WIN_CLOSED:
